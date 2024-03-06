@@ -5,19 +5,9 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    test_string = ""
-    regex = ""
-    if request.method == 'POST':
-        test_string = request.form.get('test_string')
-        regex = request.form.get('regex')
-        email = request.form.get('email')
-        if email == 'yes':
-            return redirect("/validate")
-        else:
-            return redirect("/results")
-    return render_template('index.html', test_string=test_string, regex=regex)
+    return render_template('index.html')
 
-@app.route("/results", methods=["GET","POST"])
+@app.route("/results", methods=["POST"])
 def results():
     test_string = request.form.get("test_string")
     regex = request.form.get("regex")
@@ -31,9 +21,8 @@ def results():
     return render_template("index.html", test_string=test_string, regex=regex, matches=matches, error=error)
 
 
-@app.route("/validate", methods=["GET","POST"])
+@app.route("/validate", methods=["POST"])
 def validate():
-    
     email = request.form.get("email")
     valid = False
     invalid = False
